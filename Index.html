@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алексей Шишкин | Инженер-теплотехник</title>
+    
+    <!-- Подключение премиальных шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Unbounded:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Подключение Swiper.js для премиальных каруселей -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            /* Цветовая палитра */
+            --bg-color: #050507;
+            --surface-color: #121215;
+            --surface-light: #1c1c21;
+            --accent-color: #d67a3a;
+            --accent-glow: rgba(214, 122, 58, 0.4);
+            --text-main: #f0f0f0;
+            --text-muted: #8a8a93;
+            
+            /* Шрифты */
+            --font-heading: 'Unbounded', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Анимации --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Навигация и кнопки --- */
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #e38844 0%, #b85e1c 100%);
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+            z-index: -1;
+            transform: skewX(-15deg);
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px var(--accent-glow);
+        }
+
+        /* --- Главный экран (Hero Section) --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 60px 5% 40px 5%;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            filter: blur(50px);
+            animation: pulseGlow 6s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 1000px;
+        }
+
+        /* --- Аватарка --- */
+        .hero-avatar-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 25px auto;
+            border-radius: 50%;
+            padding: 3px; 
+            background: linear-gradient(135deg, var(--accent-color) 0%, rgba(214, 122, 58, 0.1) 100%);
+            box-shadow: 0 15px 35px var(--accent-glow);
+            position: relative;
+        }
+        .hero-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--surface-color);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-color);
+        }
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .avatar-placeholder {
+            color: #555;
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 10px;
+            line-height: 1.4;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.8rem, 7vw, 5.8rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 5px;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #ffffff, #a0a0a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-brand {
+            font-family: var(--font-heading);
+            font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+            font-weight: 600;
+            letter-spacing: 6px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #e38844 0%, #ffb980 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+        }
+
+        .hero-role {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* Кнопки соцсетей в шапке */
+        .hero-action-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .hero-social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            transition: all 0.35s ease;
+        }
+        .hero-social-btn.whatsapp:hover {
+            background: #25D366;
+            border-color: #25D366;
+            color: #000;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+            transform: translateY(-2px);
+        }
+        .hero-social-btn.instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(220, 39, 67, 0.35);
+            transform: translateY(-2px);
+        }
+        .hero-social-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .hero-contacts {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .contact-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            color: var(--text-muted);
+        }
+        .contact-pill:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-color);
+            color: #fff;
+        }
+        .contact-pill svg {
+            color: var(--accent-color);
+        }
+
+        /* --- Секции общие стили --- */
+        .section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            gap: 20px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            color: #fff;
+        }
+        .section-line {
+            flex-grow: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            margin-bottom: 15px;
+        }
+
+        /* --- Обо мне --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .about-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+        .about-text strong {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .differentiators-box {
+            margin-top: 30px;
+            background: rgba(214, 122, 58, 0.05);
+            border-left: 3px solid var(--accent-color);
+            padding: 24px;
+            border-radius: 0 16px 16px 0;
+        }
+        .differentiators-box h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+        .differentiators-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .differentiators-list li {
+            position: relative;
+            padding-left: 24px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #d8d8de;
+        }
+        .differentiators-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+        
+        .stats-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .stat-box {
+            background: var(--surface-color);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 35px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent-color);
+        }
+
+        /* --- Аккордеон компетенций --- */
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .accordion-item {
+            background: var(--surface-color);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .accordion-header {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            color: #fff;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        .accordion-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.4s;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+        .accordion-item.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+            background: var(--accent-color);
+            color: #fff;
+        }
+        .accordion-content {
+            max-height: 0;
+            padding: 0 30px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .accordion-content ul {
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+        .accordion-content li {
+            margin-bottom: 10px;
+        }
+        .accordion-content li::marker {
+            color: var(--accent-color);
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 650px;
+            padding: 10px 30px 30px 30px;
+            opacity: 1;
+        }
+
+        /* --- Новая структура Портфолио: Частные дома & Квартиры --- */
+        .portfolio-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .portfolio-category-btn {
+            background: var(--surface-color);
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .portfolio-category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent-color);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .portfolio-category-btn:hover {
+            border-color: rgba(214, 122, 58, 0.4);
+            transform: translateY(-3px);
+            background: var(--surface-light);
+        }
+        .portfolio-category-btn.active {
+            border-color: var(--accent-color);
+            background: linear-gradient(135deg, rgba(214, 122, 58, 0.15) 0%, var(--surface-color) 100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .portfolio-category-btn.active::before {
+            opacity: 1;
+        }
+        .portfolio-category-btn h3 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .portfolio-category-btn p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .portfolio-category-btn .category-arrow {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        .portfolio-category-btn.active .category-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Контейнеры категорий */
+        .portfolio-category-pane {
+            display: none;
+            animation: fadeInPane 0.5s ease forwards;
+        }
+        .portfolio-category-pane.active {
+            display: block;
+        }
+        @keyframes fadeInPane {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Подменю / аккордеон конкретных объектов */
+        .project-group {
+            background: var(--surface-color);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .project-group-header {
+            padding: 24px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            color: #fff;
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            transition: 0.3s;
+        }
+        .project-group-header:hover {
+            background: rgba(255,255,255,0.02);
+            color: var(--accent-color);
+        }
+        .project-group-tag {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            background: rgba(214, 122, 58, 0.15);
+            color: var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-left: 15px;
+            text-transform: uppercase;
+        }
+        .project-group-content {
+            display: none;
+            padding: 10px 30px 40px 30px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .project-group.open .project-group-content {
+            display: block;
+        }
+        .project-group.open .accordion-icon {
+            transform: rotate(45deg);
+            background: var(--accent-color);
+            color: #fff;
+        }
+        .project-description {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            max-width: 800px;
+        }
+
+        /* --- Слайдер Swiper --- */
+        .swiper {
+            width: 100%;
+            padding-bottom: 45px;
+        }
+        .swiper-slide {
+            width: 80%;
+            max-width: 700px;
+            height: 440px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background: var(--surface-light);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #18181c;
+            color: #777;
+            padding: 20px;
+            font-size: 0.9rem;
+            border: 2px dashed #333;
+            border-radius: 16px;
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 1;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.6s ease;
+        }
+        .swiper-slide:hover img {
+            transform: scale(1.04);
+        }
+        .swiper-pagination-bullet {
+            background: var(--text-muted);
+            transition: 0.3s;
+        }
+        .swiper-pagination-bullet-active {
+            background: var(--accent-color);
+            width: 25px;
+            border-radius: 5px;
+        }
+
+        /* --- Футер --- */
+        footer {
+            text-align: center;
+            padding: 80px 20px 50px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 100px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .contact-buttons-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 380px;
+            margin: 0 auto 50px auto;
+        }
+        
+        .btn-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: transparent;
+            color: #fff;
+            padding: 16px 20px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            border: 2px solid var(--accent-color);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            box-shadow: 0 10px 30px var(--accent-glow);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Плавающая кнопка для связи */
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .portfolio-nav { grid-template-columns: 1fr; }
+            .swiper-slide { width: 92%; height: 330px; }
+            .hero-contacts { flex-direction: column; }
+            .floating-action { bottom: 20px; right: 20px; transform: scale(0.9); }
+            .contact-buttons-wrapper { max-width: 100%; }
+            .project-group-header { padding: 20px; font-size: 1rem; }
+            .project-group-content { padding: 10px 15px 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Главный экран -->
+    <header class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content reveal active">
+            
+            <!-- Аватарка -->
+           <div class="hero-avatar">
+    <img src="avatar.jpg" alt="Алексей Шишкин">
+</div>
+
+
+            
+            <!-- Montaj Master -->
+            <div class="hero-brand">Montaj Master</div>
+            
+            <!-- Должность: Оставлен только Инженер-теплотехник -->
+            <div class="hero-role">Инженер-теплотехник</div>
+            
+            <!-- Быстрые кнопки связи: Связаться + WhatsApp + Instagram -->
+            <div class="hero-action-row">
+                <a href="#contacts" class="btn-primary">Связаться</a>
+                
+                <a href="https://wa.me/message/W57DZVJVJT4CD1" target="_blank" class="hero-social-btn whatsapp">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    WhatsApp
+                </a>
+
+                <a href="https://www.instagram.com/_montajmaster_?stkn=ZDgxdWluZ2g0a2g%3D&utm_source=qr" target="_blank" class="hero-social-btn instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    Instagram
+                </a>
+            </div>
+            
+            <div class="hero-contacts">
+                <div class="contact-pill">📱 +7 (977) 303-54-21</div>
+                <div class="contact-pill">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M21.164 2.85987L2.43301 10.0768C0.771008 10.7169 0.781008 11.6709 2.12701 12.0829L6.96301 13.5919L18.156 6.53387C18.685 6.21187 19.167 6.38887 18.771 6.74187L9.70401 14.9229H9.70201L9.70401 14.9239L9.38701 19.6429C9.85101 19.6429 10.056 19.4299 10.315 19.1799L12.545 17.0119L17.185 20.4359C18.038 20.9069 18.653 20.6619 18.852 19.6209L21.854 5.48087C22.144 4.31687 21.411 3.79187 21.164 2.85987Z"/>
+                    </svg>
+                    @MontajMasterMoscow
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Обо мне -->
+    <section class="section">
+        <div class="section-header reveal">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="about-grid reveal">
+            <div class="about-text">
+                <p style="margin-bottom: 20px;">Я — <strong>инженер-проектировщик и руководитель проектов</strong> с опытом работы в отрасли более 7 лет. В 2019 году создал собственную компанию по разработке и реализации инженерной сантехники.</p>
+                <p style="margin-bottom: 25px;"><strong>Современный подход:</strong> активно изучаю и внедряю передовые технологии и искусственный интеллект. Педантичен к культуре производства работ, соблюдаю абсолютную чистоплотность. Воспитан, чту субординацию и деловой этикет, умею находить общий язык с заказчиками и субподрядчиками.</p>
+
+                <!-- Блок ключевых отличительных черт и преимуществ -->
+                <div class="differentiators-box">
+                    <h4>Ключевые преимущества и отличия:</h4>
+                    <ul class="differentiators-list">
+                        <li><strong>Потомственный строитель:</strong> перенял многолетний опыт династии строителей и энергетиков, сочетая фундаментальную советскую инженерную школу с современными премиальными технологиями.</li>
+                        <li><strong>Синтез проектировщика и монтажника:</strong> глубоко понимаю теплофизику и гидравлику на бумаге и лично знаю каждый нюанс сборки руками «в поле».</li>
+                        <li><strong>Инженерия как искусство:</strong> каждый распределительный узел собирается с безупречной геометрией линий, авторской маркировкой контуров и выверенной эстетикой арт-объекта.</li>
+                        <li><strong>Полная ответственность «под ключ»:</strong> от точного теплотехнического расчета и закупки топовой европейской арматуры до финальной пусконаладки и сервиса.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="stats-wrapper">
+                <div class="stat-box">
+                    <h3 style="color: var(--accent-color); font-size: 3rem; margin-bottom: 10px;">&gt; 7 лет</h3>
+                    <p style="color: var(--text-muted); font-size: 1.1rem;">Опыта в проектировании, строительстве и управлении инженерными проектами.</p>
+                </div>
+                
+                <div class="stat-box">
+                    <h3 style="color: var(--accent-color); font-size: 3rem; margin-bottom: 10px;">&gt; 30</h3>
+                    <p style="color: var(--text-muted); font-size: 1.1rem;">Реализованных проектов различной сложности и типов.</p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Компетенции -->
+    <section class="section">
+        <div class="section-header reveal">
+            <h2 class="section-title">Компетенции</h2>
+            <div class="section-line"></div>
+        </div>
+        
+        <div class="accordion reveal">
+            <div class="accordion-item">
+                <button class="accordion-header">Проектирование и документация <div class="accordion-icon">+</div></button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Разработка проектной документации и архитектурных решений.</li>
+                        <li>Просчет смет, спецификаций и выполнение строительных расчетов.</li>
+                        <li>Проектирование систем канализации, водоснабжения и котельных.</li>
+                        <li>Согласование и утверждение всех технических решений инженерных систем.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">Управление проектами и контроль <div class="accordion-icon">+</div></button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Организация работы коллективов, найм сотрудников и постановка задач.</li>
+                        <li>Планирование этапов работ и жесткий строительный контроль качества.</li>
+                        <li>Коммуникация с клиентами, отчетность и взаимодействие с субподрядными организациями.</li>
+                        <li>Полная комплектация объектов инженерным оборудованием.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item active">
+                <button class="accordion-header">Монтаж и реализация <div class="accordion-icon">+</div></button>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Авторские узлы открытого типа:</strong> проектирование и сборка десятков уникальных инженерных узлов, выставленных в интерьере как арт-объекты. Полный цикл авторской разработки и реализации собственными руками от нулевой точки до сдачи.</li>
+                        <li>Сборка и монтаж котельных комплексов премиального уровня (медь, нержавеющая сталь).</li>
+                        <li>Монтаж систем автоматизации, погодозависимого управления и комплексные пуско-наладочные работы.</li>
+                        <li>Педантичное соблюдение культуры производства, идеальной геометрии прокладки и современных строительных стандартов.</li>
+                        <li>Ведение блога компании и создание профессионального визуального контента.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Портфолио с разделением на "Частные дома" и "Квартиры" -->
+    <section class="section" id="gallery">
+        <div class="section-header reveal">
+            <h2 class="section-title">Портфолио</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <!-- Навигационные кнопки двух главных направлений -->
+        <div class="portfolio-nav reveal">
+            <div class="portfolio-category-btn active" data-category="houses">
+                <h3>Частные дома <span class="category-arrow">➜</span></h3>
+                <p>Комплексные инженерные системы, котельные, водоподготовка и теплые полы для загородных резиденций.</p>
+            </div>
+            <div class="portfolio-category-btn" data-category="apartments">
+                <h3>Квартиры <span class="category-arrow">➜</span></h3>
+                <p>Компактные распределительные узлы водоснабжения, шумоизоляция и скрытые модульные инсталляции премиум-класса.</p>
+            </div>
+        </div>
+
+        <!-- НАПРАВЛЕНИЕ: ЧАСТНЫЕ ДОМА -->
+        <div class="portfolio-category-pane active" id="pane-houses">
+            
+            <!-- Объект 1: Котельная загородного дома -->
+            <div class="project-group open">
+                <button class="project-group-header">
+                    <div>
+                        Современный дом площадью 650м2
+                        <span class="project-group-tag">Загородный дом</span>
+                    </div>
+                    <div class="accordion-icon">+</div>
+                </button>
+                <div class="project-group-content">
+                    <p class="project-description">Комплексная обвязка котельной на базе каскада настенных котлов и бойлера косвенного нагрева. Трубопроводы из нержавеющей стали и газовые линии из меди, насосные группы Oventrop с защитными кожухами, расширительные баки и фирменная маркировка контуров.</p>
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="img-placeholder">:  <br> <img src= "boiler1.jpg";</div></div>
+  <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="img-placeholder">:  <br> <img src= "boiler2.jpg";</div></div>
+                            
+  <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="img-placeholder">:  <br> <img src= "boiler3.jpg";</div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Объект 2: Распределительные коллекторы отопления и ТП -->
+            <div class="project-group">
+                <button class="project-group-header">
+                    <div>
+                        Распределительный узел отопления и теплых полов
+                        <span class="project-group-tag">Загородный дом</span>
+                    </div>
+                    <div class="accordion-icon">+</div>
+                </button>
+                <div class="project-group-content">
+                    <p class="project-description">Выверенная параллельная вертикальная разводка из полированной нержавеющей стали. Установлены термоманометры Watts, балансировочные вентили и точная лазерная гравировка контуров на брендированных шильдиках.</p>
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="img-placeholder">Вертикальная гребенка<br>&lt;img src="collector_1.jpg"&gt;</div></div>
+                            <div class="swiper-slide"><div class="img-placeholder">Детализация арматуры и манометров<br>&lt;img src="collector_2.jpg"&gt;</div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Объект 3: Система комплексной водоподготовки дома -->
+            <div class="project-group">
+                <button class="project-group-header">
+                    <div>
+                        Колонная система водоочистки и водоподготовки
+                        <span class="project-group-tag">Загородный дом</span>
+                    </div>
+                    <div class="accordion-icon">+</div>
+                </button>
+                <div class="project-group-content">
+                    <p class="project-description">Трехколонная система в стильных черных термочехлах: фильтр-аэратор с компрессором, фильтр обезжелезивания и умягчитель с солевым баком. Обвязка узла байпаса из нержавеющей трубы Viega.</p>
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="img-placeholder">Колонны водоподготовки<br>&lt;img src="water_treatment_1.jpg"&gt;</div></div>
+                            <div class="swiper-slide"><div class="img-placeholder">Байпасная линия и автоматика Clack<br>&lt;img src="water_treatment_2.jpg"&gt;</div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- НАПРАВЛЕНИЕ: КВАРТИРЫ -->
+        <div class="portfolio-category-pane" id="pane-apartments">
+            
+            <!-- Объект 1: Коллекторный узел квартиры -->
+            <div class="project-group open">
+                <button class="project-group-header">
+                    <div>
+                        Премиальный водомерный узел на перфопанели
+                        <span class="project-group-tag">Квартира</span>
+                    </div>
+                    <div class="accordion-icon">+</div>
+                </button>
+                <div class="project-group-content">
+                    <p class="project-description">Коллекторный шкаф открытого монтажа: магистральные фильтры из нержавеющей стали с манометрами, компенсаторы гидроударов FAR, коллекторы с плавными вентилями и система защиты от протечек Нептун.</p>
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="img-placeholder">Узел водоснабжения квартиры<br>&lt;img src="apartment_node_1.jpg"&gt;</div></div>
+                            <div class="swiper-slide"><div class="img-placeholder">Компенсаторы FAR и фильтры<br>&lt;img src="apartment_node_2.jpg"&gt;</div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Объект 2: Инсталляции и черновой монтаж -->
+            <div class="project-group">
+                <button class="project-group-header">
+                    <div>
+                        Модульная профильная система TECEprofil и шумоизоляция
+                        <span class="project-group-tag">Квартира</span>
+                    </div>
+                    <div class="accordion-icon">+</div>
+                </button>
+                <div class="project-group-content">
+                    <p class="project-description">Скрытый монтаж сантехники в санузле квартиры. Несущий стальной профиль, инсталляции TECE, скрытые смесители, премиальная шумоизоляция стояков и труб в энергофлексе на акустической подложке.</p>
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="img-placeholder">Профильная рама TECE<br>&lt;img src="tece_frame_1.jpg"&gt;</div></div>
+                            <div class="swiper-slide"><div class="img-placeholder">Шумоизоляция и разводка канализации<br>&lt;img src="tece_frame_2.jpg"&gt;</div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Подвал -->
+    <footer id="contacts">
+        <h2 style="margin-bottom: 20px; font-size: 2.3rem; color: #fff;">Готовы обсудить ваш проект?</h2>
+        <p style="margin-bottom: 40px; font-size: 1.1rem;">Выберите наиболее комфортный способ связи</p>
+        
+        <div class="contact-buttons-wrapper reveal">
+            
+            <a href="tel:+79773035421" class="btn-secondary">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A19 19 0 012 2a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.27 1.11l-2.2 2.2z"/></svg>
+                Позвонить напрямую
+            </a>
+            
+            <a href="https://wa.me/message/W57DZVJVJT4CD1" target="_blank" class="btn-secondary" style="border-color: #25D366;">
+                <svg viewBox="0 0 24 24" style="fill: #25D366;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Написать в WhatsApp
+            </a>
+            
+            <a href="https://t.me/MontajMasterMoscow" target="_blank" class="btn-secondary">
+                <svg viewBox="0 0 24 24"><path d="M21.164 2.85987L2.43301 10.0768C0.771008 10.7169 0.781008 11.6709 2.12701 12.0829L6.96301 13.5919L18.156 6.53387C18.685 6.21187 19.167 6.38887 18.771 6.74187L9.70401 14.9229H9.70201L9.70401 14.9239L9.38701 19.6429C9.85101 19.6429 10.056 19.4299 10.315 19.1799L12.545 17.0119L17.185 20.4359C18.038 20.9069 18.653 20.6619 18.852 19.6209L21.854 5.48087C22.144 4.31687 21.411 3.79187 21.164 2.85987Z"/></svg>
+                Телеграм-канал / Чат
+            </a>
+            
+            <a href="https://www.instagram.com/_montajmaster_?stkn=ZDgxdWluZ2g0a2g%3D&utm_source=qr" target="_blank" class="btn-secondary" style="border-color: #e6683c;">
+                <svg viewBox="0 0 24 24" style="fill: #e6683c;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Instagram
+            </a>
+            
+        </div>
+        
+        <p>&copy; 2026 Шишкин Алексей | Инженерные системы Montaj Master</p>
+    </footer>
+
+    <!-- Плавающая кнопка Telegram -->
+    <div class="floating-action">
+        <a href="https://t.me/MontajMasterMoscow" target="_blank" class="btn-primary" style="border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; padding: 0;">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                <path d="M21.164 2.85987L2.43301 10.0768C0.771008 10.7169 0.781008 11.6709 2.12701 12.0829L6.96301 13.5919L18.156 6.53387C18.685 6.21187 19.167 6.38887 18.771 6.74187L9.70401 14.9229H9.70201L9.70401 14.9239L9.38701 19.6429C9.85101 19.6429 10.056 19.4299 10.315 19.1799L12.545 17.0119L17.185 20.4359C18.038 20.9069 18.653 20.6619 18.852 19.6209L21.854 5.48087C22.144 4.31687 21.411 3.79187 21.164 2.85987Z"/>
+            </svg>
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Инициализация Swiper
+            function initSwipers() {
+                return new Swiper(".mySwiper", {
+                    slidesPerView: "auto",
+                    spaceBetween: 25,
+                    grabCursor: true,
+                    observer: true,
+                    observeParents: true,
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        320: { spaceBetween: 15 },
+                        768: { spaceBetween: 25 }
+                    }
+                });
+            }
+            initSwipers();
+
+            // Аккордеон в Компетенциях
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                header.addEventListener('click', () => {
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Переключение категорий портфолио ("Частные дома" / "Квартиры")
+            const categoryBtns = document.querySelectorAll('.portfolio-category-btn');
+            const categoryPanes = {
+                houses: document.getElementById('pane-houses'),
+                apartments: document.getElementById('pane-apartments')
+            };
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const target = btn.getAttribute('data-category');
+                    Object.keys(categoryPanes).forEach(key => {
+                        if (key === target) {
+                            categoryPanes[key].classList.add('active');
+                        } else {
+                            categoryPanes[key].classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Раскрытие объектов внутри выбранной категории
+            const projectGroupHeaders = document.querySelectorAll('.project-group-header');
+            projectGroupHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const parent = header.closest('.project-group');
+                    parent.classList.toggle('open');
+                });
+            });
+
+            // Анимации при скролле
+            const reveals = document.querySelectorAll(".reveal");
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
+            });
+
+            reveals.forEach(reveal => {
+                revealObserver.observe(reveal);
+            });
+        });
+    </script>
+</body>
+</html>
